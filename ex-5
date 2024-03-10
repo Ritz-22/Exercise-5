@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+</head>
+<style>
+    body {
+        background-color: rgb(164, 69, 85);
+    }
+</style>
+<script>
+    function valid() {
+        var uname = document.getElementById("name");
+        var email = document.getElementById("mail").value;
+        var pass = document.getElementById("pass");
+        var number = document.getElementById("num");
+        var radio = document.getElementsByName("one");
+        var flag = false;
+        var zip = document.getElementById("zip");
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (uname.value.trim() == "") {
+            uname.style.border = "solid 2px red";
+            document.getElementById("l1").style.visibility = "visible";
+            document.getElementById("l1").innerHTML = "Username is blank";
+            return false;
+        }
+        if (!emailRegex.test(email)) {
+            document.getElementById("l6").style.visibility = "visible";
+            document.getElementById("l6").innerHTML = "Invalid email format";
+            return false;
+        }
+        if (pass.value.trim() == "" || pass.value.length < 5) {
+            pass.style.border = "solid 2px red";
+            document.getElementById("l2").style.visibility = "visible";
+            document.getElementById("l2").innerHTML = "Password must be at least 5 characters long";
+            return false;
+        }
+
+        if (number.value.trim().length != 10 || isNaN(number.value.trim())) {
+            number.style.border = "solid 2px red";
+            document.getElementById("l3").style.visibility = "visible";
+            document.getElementById("l3").innerHTML = "Enter a valid 10-digit number";
+            return false;
+        }
+
+        if (zip.value.trim().length != 6 || isNaN(zip.value.trim())) {
+            zip.style.border = "solid 2px red";
+            document.getElementById("l4").style.visibility = "visible";
+            document.getElementById("l4").innerHTML = "Enter a valid 6-digit zipcode";
+            return false;
+        }
+
+        for (var i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag) {
+            document.getElementById("l7").style.visibility = "visible";
+            document.getElementById("l7").innerHTML = "Please select a gender";
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
+<body>
+    <form action="success.html" onsubmit="return valid()">
+        <h1>Registration Form</h1>
+
+        Name:
+        <input type="text" id="name">
+        <label id="l1" style="color: green;visibility: hidden;"></label><br><br>
+
+        Email:
+        <input type="text" id="mail">
+        <label id="l6" style="color: green;visibility: hidden;"></label><br><br>
+
+        Password:
+        <input type="password" id="pass">
+        <label id="l2" style="color: green;visibility: hidden;"></label><br><br>
+
+        Phone Number:
+        <input type="text" id="num">
+        <label id="l3" style="color: green;visibility: hidden;"></label><br><br>
+
+        Gender:
+        <label><input type="radio" name="one" value="male" required> Male</label>
+        <label><input type="radio" name="one" value="female"> Female</label>
+        <label><input type="radio" name="one" value="other"> Other</label>
+        <label id="l7" style="color: green;visibility: hidden;"></label><br><br>
+
+        Language:
+        <select name="two" id="two" required>
+            <option value="">Select Language</option>
+            <option value="Hindi">Hindi</option>
+            <option value="English">English</option>
+            <option value="Tamil">Tamil</option>
+        </select>
+        <label id="l8" style="color: green;visibility: hidden;"></label><br><br>
+
+        Zipcode:
+        <input type="text" id="zip">
+        <label id="l4" style="color: green;visibility: hidden;"></label><br><br>
+
+        About:
+        <textarea name="" id="text" cols="22" rows="6" required></textarea>
+        <label id="l5" style="color: green;visibility: hidden;"></label><br><br>
+
+        <input type="submit" width="400px" height="30px" value="Register">
+
+    </form>
+</body>
+
+</html>
